@@ -1,13 +1,30 @@
 package tag1.restaurantOOP;
 
-//Erstelle eine Klasse für einen Besucher. Diese soll als Attribute die Tischnummer, eine Liste für
-//die bestellten Gerichte und Getränke (die zunächst leer ist) und den Rechnungsbetrag (der zu
-//Beginn bei 0 Euro liegt) enthalten. Verwende für den Konstruktor daher nur die Tischnummer als
-//Übergabewert und gib die übrigen Attribute direkt vor.
-
+import java.util.HashMap;
+import java.util.Map;
 
 public class Besucher {
-    Besucher(int tischnummer, String[] bestellungen, int rechnungsbetrag) {
-
+    Map<String, Double> bestellung;
+    Double rechnungsbetrag;
+    int tischnummer;
+    Map<String, Double> speisekarte;
+    Besucher(int tischnummer, Map<String, Double> speisekarte) {
+        this.tischnummer = tischnummer;
+        this.rechnungsbetrag = 0.0;
+        this.bestellung = new HashMap<>();
+        this.speisekarte = speisekarte;
     }
+
+    void setBestellung(String... essen) {
+        for (String s : essen) {
+            this.bestellung.put(s, this.speisekarte.get(s));
+        }
+   }
+
+   Double getRechnung() {
+        for (double price : this.bestellung.values()) {
+            this.rechnungsbetrag += price;
+        }
+        return this.rechnungsbetrag;
+   }
 }
